@@ -73,11 +73,11 @@ def main():
     out["decoupling_gap_vs_R1"] = None
     q2 = os.path.join(C.INTERMEDIATE_DIR, "q2_cmp_R1.json")
     if os.path.exists(q2):
-        r1 = json.load(open(q2))["meta"]
+        r1 = json.load(open(q2, encoding="utf-8"))["meta"]
         out["daily_decoupled_R1"] = r1
         out["decoupling_gap"] = r1["tot_cost"] - out["full_year"]["cost"]
         out["decoupling_gap_pct"] = (r1["tot_cost"] - out["full_year"]["cost"]) / r1["tot_cost"]
-    with open(os.path.join(C.INTERMEDIATE_DIR, "exp_benchmark.json"), "w") as f:
+    with open(os.path.join(C.INTERMEDIATE_DIR, "exp_benchmark.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     print(json.dumps(out, ensure_ascii=False, indent=1))
     print()

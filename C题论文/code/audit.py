@@ -120,7 +120,7 @@ def audit_result_files():
 def audit_internal():
     """内部解（10 min 级）的可行性审计。"""
     out = {}
-    q1 = json.load(open(os.path.join(C.INTERMEDIATE_DIR, "q1.json")))
+    q1 = json.load(open(os.path.join(C.INTERMEDIATE_DIR, "q1.json", encoding="utf-8")))
     a = q1["arrays"]
     E = np.array(a["E"]); c = np.array(a["c"]); d = np.array(a["d"]); S = np.array(a["S"])
     price = np.array(a["price"]); load = np.array(a["load"]); pv = np.array(a["pv"])
@@ -140,7 +140,7 @@ def audit_internal():
         p = os.path.join(C.INTERMEDIATE_DIR, f)
         if not os.path.exists(p):
             continue
-        j = json.load(open(p))
+        j = json.load(open(p, encoding="utf-8"))
         E = np.vstack([np.array(r["E"] if tag == "q2" else r["E_adj"]) for r in j["daily"]])
         c = np.vstack([np.array(r["c"]) for r in j["daily"]])
         d = np.vstack([np.array(r["d"]) for r in j["daily"]])
@@ -176,7 +176,7 @@ def main():
     rows, out = audit_result_files()
     inner = audit_internal()
     os.makedirs(C.INTERMEDIATE_DIR, exist_ok=True)
-    with open(os.path.join(C.INTERMEDIATE_DIR, "audit.json"), "w") as f:
+    with open(os.path.join(C.INTERMEDIATE_DIR, "audit.json"), "w", encoding="utf-8") as f:
         json.dump(dict(deliverable=out, internal=inner), f, ensure_ascii=False, indent=1)
     lines = ["# 独立审计报告（A1–A10）", "",
              "> 由独立脚本 audit.py 从结果文件与原始附件复算，不调用建模目标函数。",
@@ -197,7 +197,7 @@ def main():
             lines.append(f"| {tag} | {k} | {v:.3e} |" if isinstance(v, float)
                          else f"| {tag} | {k} | {v} |")
     txt = "\n".join(lines)
-    with open(os.path.join(C.INTERMEDIATE_DIR, "audit_report.md"), "w") as f:
+    with open(os.path.join(C.INTERMEDIATE_DIR, "audit_report.md"), "w", encoding="utf-8") as f:
         f.write(txt)
     print(txt[:4000])
     return out

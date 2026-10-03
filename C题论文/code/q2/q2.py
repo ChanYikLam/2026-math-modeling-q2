@@ -168,7 +168,7 @@ def main():
                        for k, v in r.items()} for r in recs],
                scen=dict(cen=scen["resid_cen"].tolist(),
                          w=scen["resid_w"].tolist()))
-    with open(os.path.join(C.INTERMEDIATE_DIR, f"q2_{args.tag}.json"), "w") as f:
+    with open(os.path.join(C.INTERMEDIATE_DIR, f"q2_{args.tag}.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     return out
 

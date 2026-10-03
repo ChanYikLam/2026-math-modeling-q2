@@ -497,7 +497,7 @@ def main():
         out["price_tests"] = pt
         out["fidelity_hist"] = fid_h
         out["fidelity_boot"] = fid_b
-        with open(os.path.join(C.INTERMEDIATE_DIR, "q4_price.json"), "w") as f:
+        with open(os.path.join(C.INTERMEDIATE_DIR, "q4_price.json"), "w", encoding="utf-8") as f:
             json.dump(out, f, ensure_ascii=False, indent=1)
 
     if args.mode in ("q42", "q43", "all"):
@@ -512,7 +512,7 @@ def main():
                        days_emg=int(sum(1 for r in recs if r["emg_qty"] > 1e-6)))
             print("Q4-2:", {k: (round(v, 2) if isinstance(v, float) else v) for k, v in tot.items()})
             print("  节省率 %.2f%%" % ((tot["base"] - tot["total"]) / tot["base"] * 100))
-            with open(os.path.join(C.INTERMEDIATE_DIR, "q4_2.json"), "w") as f:
+            with open(os.path.join(C.INTERMEDIATE_DIR, "q4_2.json"), "w", encoding="utf-8") as f:
                 json.dump(dict(meta=tot, daily=[{k: (v.isoformat() if k == "date" else
                                                      (v.tolist() if isinstance(v, np.ndarray) else v))
                                                 for k, v in r.items()} for r in recs]),
@@ -524,7 +524,7 @@ def main():
                      "base_cost", "emg_qty", "breach_qty", "excess_qty")}
             print("Q4-3:", {k: (round(v, 2) if isinstance(v, float) else v) for k, v in tot3.items()})
             print("  节省率 %.2f%%" % ((tot3["base_cost"] - tot3["total_cost"]) / tot3["base_cost"] * 100))
-            with open(os.path.join(C.INTERMEDIATE_DIR, "q4_3.json"), "w") as f:
+            with open(os.path.join(C.INTERMEDIATE_DIR, "q4_3.json"), "w", encoding="utf-8") as f:
                 json.dump(dict(meta=tot3, daily=[{k: (v.isoformat() if k == "date" else
                                                      (v.tolist() if isinstance(v, np.ndarray) else v))
                                                 for k, v in r.items()} for r in recs3]),
@@ -568,7 +568,7 @@ def main():
                             cvar_equalweight=cvar_eq / n))
             print("  lam=%.1f  期望费用 %.2f  真实回测 %.2f  CVaR95 %.2f  紧急 %.1f kWh/日"
                   % (lam, exp_cost / n, real_cost / n, cvar_val / n, emg / n))
-        with open(os.path.join(C.INTERMEDIATE_DIR, "q4_cvar.json"), "w") as f:
+        with open(os.path.join(C.INTERMEDIATE_DIR, "q4_cvar.json"), "w", encoding="utf-8") as f:
             json.dump(dict(days=[str(pd.Timestamp(x).date()) for x in sub],
                            frontier=res,
                            note="cvar = 加权 Rockafellar–Uryasev (eq.25)，权重 = 分层 medoid 情景的层样本占比；"

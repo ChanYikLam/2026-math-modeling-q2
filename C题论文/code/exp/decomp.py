@@ -522,7 +522,7 @@ def main():
     ]
     out["meta"]["runtime_s"] = time.time() - t_start
     path = os.path.join(C.INTERMEDIATE_DIR, f"{args.tag}.json")
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     print("=" * 78)
     print(f"等价性：K=60 全窗口最大相对差 {out['equivalence_K60']['max_rel_gap']:.2e}；"

@@ -168,7 +168,7 @@ def main():
              emg_qty_ratio=(x["emg_qty"] / base["emg_qty"]) if base["emg_qty"] > 0 else None)
         for x in rows]
 
-    with open(os.path.join(C.INTERMEDIATE_DIR, "exp_loaderr.json"), "w") as f:
+    with open(os.path.join(C.INTERMEDIATE_DIR, "exp_loaderr.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     print("\n已写出 intermediate/exp_loaderr.json")
 

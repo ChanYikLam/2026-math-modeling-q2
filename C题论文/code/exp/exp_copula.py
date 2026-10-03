@@ -238,7 +238,7 @@ def cvar(x, alpha=0.95):
 def part4_risk(alpha=0.95):
     out = dict(alpha=alpha)
     # (a) 问题 2（固定价）
-    j2 = json.load(open(os.path.join(C.INTERMEDIATE_DIR, "q2_main.json")))
+    j2 = json.load(open(os.path.join(C.INTERMEDIATE_DIR, "q2_main.json", encoding="utf-8")))
     price2 = C.read_attachment1()["price"].to_numpy(float)
     E2 = np.vstack([r["E"] for r in j2["daily"]])
     G2 = np.vstack([r["g"] for r in j2["daily"]])
@@ -262,7 +262,7 @@ def part4_risk(alpha=0.95):
     out["q2_top12_slots"] = [C.slot_label(int(t)) for t in sorted(o[:12])]
 
     # (b) 问题 4-2（波动价）
-    j4 = json.load(open(os.path.join(C.INTERMEDIATE_DIR, "q4_2.json")))
+    j4 = json.load(open(os.path.join(C.INTERMEDIATE_DIR, "q4_2.json", encoding="utf-8")))
     p4 = C.Panel(DATE_ALL).P(volatile=True)
     dates = [pd.Timestamp(r["date"]) for r in j4["daily"]]
     Pact = p4.loc[dates].to_numpy(float)
@@ -296,7 +296,7 @@ def main():
     prev = {}
     jpath = os.path.join(C.INTERMEDIATE_DIR, "exp_copula.json")
     if os.path.exists(jpath):
-        prev = json.load(open(jpath))
+        prev = json.load(open(jpath, encoding="utf-8"))
     p1 = prev.get("part1_vine", None); p1_train = prev.get("part1_vine_train", None)
     p2 = prev.get("part2_level", None); p3 = prev.get("part3_generators", None)
     p4 = prev.get("part4_risk", None)
@@ -319,7 +319,7 @@ def main():
                K=K_MAIN, part1_vine=p1, part1_vine_train=p1_train, part2_level=p2,
                part3_generators=p3, part4_risk=p4)
     path = os.path.join(C.INTERMEDIATE_DIR, "exp_copula.json")
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     print("已写出", path)
     print(json.dumps(dict(

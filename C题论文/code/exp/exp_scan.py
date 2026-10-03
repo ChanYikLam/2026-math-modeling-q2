@@ -109,7 +109,7 @@ def eta_scan():
 
 def newsboy_check(K=60):
     """报童经验覆盖率：计划口径下逐槽缺货频率与临界分位数理论的对比。"""
-    j = json.load(open(os.path.join(C.INTERMEDIATE_DIR, "q2_main.json")))
+    j = json.load(open(os.path.join(C.INTERMEDIATE_DIR, "q2_main.json", encoding="utf-8")))
     G = np.vstack([np.array(r["g"]) for r in j["daily"]])
     E = np.vstack([np.array(r["E"]) for r in j["daily"]])
     c = np.vstack([np.array(r["c"]) for r in j["daily"]])
@@ -163,7 +163,7 @@ def main():
     res["eta"] = eta_scan()
     res["newsboy"] = newsboy_check()
     res["penalty"] = sens_penalty()
-    with open(os.path.join(C.INTERMEDIATE_DIR, "exp_scan.json"), "w") as f:
+    with open(os.path.join(C.INTERMEDIATE_DIR, "exp_scan.json"), "w", encoding="utf-8") as f:
         json.dump(res, f, ensure_ascii=False, indent=1)
     print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
 

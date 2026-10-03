@@ -352,7 +352,7 @@ def main():
     xcheck = {}
     q2path = os.path.join(C.INTERMEDIATE_DIR, "q2_main.json")
     if ref is not None and os.path.exists(q2path):
-        m = json.load(open(q2path))["meta"]
+        m = json.load(open(q2path, encoding="utf-8"))["meta"]
         xcheck = dict(q2_main_json=dict(tot_cost=m["tot_cost"], tot_emg_qty=m["tot_emg_qty"],
                                         tot_base=m["tot_base"], n_days=m["n_days"]),
                       recomputed=dict(tot_cost=ref["tot_cost"], tot_emg_qty=ref["tot_emg_qty"],
@@ -417,7 +417,7 @@ def main():
         ],
     )
     path = os.path.join(C.INTERMEDIATE_DIR, f"{args.tag}.json")
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     print("=" * 78)
     print(f"无储能基线 C-01（334 天，固定价） {base_total:,.2f} 元")

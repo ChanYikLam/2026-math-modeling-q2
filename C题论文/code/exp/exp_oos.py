@@ -63,7 +63,7 @@ def main():
     out["oos_train_scenarios"] = run(TRAIN, TEST)
     out["insample_test_scenarios"] = run(TEST, TEST)
     # 参考：全窗口主结果中测试窗部分的实际值
-    j = json.load(open(os.path.join(C.INTERMEDIATE_DIR, "q2_main.json")))
+    j = json.load(open(os.path.join(C.INTERMEDIATE_DIR, "q2_main.json", encoding="utf-8")))
     sel = [r for r in j["daily"] if pd.Timestamp(r["date"]) in set(TEST)]
     out["main_full_scenarios_test_window"] = dict(
         n_days=len(sel), plan=sum(r["plan_cost"] for r in sel),
@@ -73,7 +73,7 @@ def main():
         base=sum(r["base_cost"] for r in sel),
         saving=(sum(r["base_cost"] for r in sel) - sum(r["total_cost"] for r in sel))
         / sum(r["base_cost"] for r in sel))
-    with open(os.path.join(C.INTERMEDIATE_DIR, "exp_oos.json"), "w") as f:
+    with open(os.path.join(C.INTERMEDIATE_DIR, "exp_oos.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     print(json.dumps(out, ensure_ascii=False, indent=1))
     a, b, c = out["oos_train_scenarios"], out["insample_test_scenarios"], out["main_full_scenarios_test_window"]

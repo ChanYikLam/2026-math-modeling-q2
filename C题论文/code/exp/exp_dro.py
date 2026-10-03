@@ -570,8 +570,8 @@ def main():
     # ---- 与问题 4 主方案（情景式随机规划）对照 ----
     ref = {}
     try:
-        with open(os.path.join(C.INTERMEDIATE_DIR, "q4_2.json")) as f:
-            j = json.load(open(os.path.join(C.INTERMEDIATE_DIR, "q4_2.json")))
+        with open(os.path.join(C.INTERMEDIATE_DIR, "q4_2.json"), encoding="utf-8") as f:
+            j = json.load(open(os.path.join(C.INTERMEDIATE_DIR, "q4_2.json", encoding="utf-8")))
         m = j["meta"]
         ref = dict(source="intermediate/q4_2.json", model="情景式两阶段随机规划（K=60 联合情景）",
                    total_cost=m["total"], base_cost=m["base"], emg_qty=m["emg_qty"],
@@ -674,7 +674,7 @@ def main():
         daily=dailies,
         conclusion=concl,
     )
-    with open(args.out, "w") as f:
+    with open(args.out, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
     if args.fig:
         fp = os.path.join(C.FIGURE_DIR, "fig11_dro_conservatism.pdf")

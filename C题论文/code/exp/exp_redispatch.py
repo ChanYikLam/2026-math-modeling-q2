@@ -71,7 +71,7 @@ TOL = 1e-6
 def load_plan(panel, price, max_days=None):
     """读取主口径（K=60, scen=strat, info=R3）的 0:00 计划，构造逐日 LP 输入。"""
     path = os.path.join(C.INTERMEDIATE_DIR, PLAN_JSON)
-    j = json.load(open(path))
+    j = json.load(open(path, encoding="utf-8"))
     rows = j["daily"] if max_days is None else j["daily"][:max_days]
     load = panel.L(); pv_act = panel.PV()
     recs = []
@@ -664,7 +664,7 @@ def main():
         "per_day": {k: v["per_day"] for k, v in out.items()},
     }
     path = os.path.join(C.INTERMEDIATE_DIR, args.out)
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=1)
     print(f"已写出 {path}")
     return payload

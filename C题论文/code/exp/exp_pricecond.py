@@ -141,7 +141,7 @@ def main():
         print(f"  -> {method:10s} 总费用 {r['total']:,.2f} 元  "
               f"节省率 {r['saving']*100:.2f}%  紧急 {r['emg_qty']:,.1f} kWh  "
               f"ESS {r['ess_mean']:.1f}")
-    with open(os.path.join(C.INTERMEDIATE_DIR, "exp_pricecond.json"), "w") as f:
+    with open(os.path.join(C.INTERMEDIATE_DIR, "exp_pricecond.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1, default=float)
     print("已写出 intermediate/exp_pricecond.json")
 

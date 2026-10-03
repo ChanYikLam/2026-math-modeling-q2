@@ -95,7 +95,7 @@ def main():
             dmax = max(float(np.max(np.abs(alt[d][a:b] - base[d][a:b]))) for d in DAYS)
             diffs[f"槽{a}-{b}"] = dmax
         out[f"置换{h:02d}:00预报"] = diffs
-    with open(os.path.join(C.INTERMEDIATE_DIR, args.out), "w") as f:
+    with open(os.path.join(C.INTERMEDIATE_DIR, args.out), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     print(json.dumps(out, ensure_ascii=False, indent=1))
     print()

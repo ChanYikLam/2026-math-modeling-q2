@@ -215,7 +215,7 @@ def main():
                            price=price.tolist(), load=load.tolist(), pv=pv.tolist(),
                            dual_eq=sol["dual_eq"].tolist(),
                            dual_bal=sol["dual_ub"].tolist()))
-    with open(os.path.join(C.INTERMEDIATE_DIR, "q1.json"), "w") as f:
+    with open(os.path.join(C.INTERMEDIATE_DIR, "q1.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     return out
 

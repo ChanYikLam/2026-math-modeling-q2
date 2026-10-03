@@ -18,7 +18,7 @@ NOTES = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def load(name):
     p = os.path.join(INT, name)
-    return json.load(open(p)) if os.path.exists(p) else None
+    return json.load(open(p, encoding="utf-8")) if os.path.exists(p) else None
 
 
 def f(x, n=2):

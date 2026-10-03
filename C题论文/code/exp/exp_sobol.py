@@ -86,7 +86,7 @@ def main():
     N = int(sys.argv[1]) if len(sys.argv) > 1 else 256
     out = dict(cost=sobol_indices(N=N, target=0),
                saving=sobol_indices(N=N, target=1, seed=43))
-    with open(os.path.join(C.INTERMEDIATE_DIR, "exp_sobol.json"), "w") as f:
+    with open(os.path.join(C.INTERMEDIATE_DIR, "exp_sobol.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     for key, tag in (("cost", "全天购电费（元）"), ("saving", "相对基线节省率")):
         r = out[key]

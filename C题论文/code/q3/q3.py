@@ -171,7 +171,7 @@ def main():
     out = dict(meta=tot, daily=[{k: (v.isoformat() if k == "date" else
                                      (v.tolist() if isinstance(v, np.ndarray) else v))
                                 for k, v in r.items()} for r in recs])
-    with open(os.path.join(C.INTERMEDIATE_DIR, f"q3_{args.tag}.json"), "w") as f:
+    with open(os.path.join(C.INTERMEDIATE_DIR, f"q3_{args.tag}.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     if args.write and not args.perfect:
         dates = [r["date"] for r in recs]
